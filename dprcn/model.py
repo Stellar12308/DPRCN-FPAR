@@ -47,8 +47,8 @@ class ResidualGroup(nn.Module):
         return x + self.tail(self.blocks(x))
 
 
-class TopographyConditionedDPRCN(nn.Module):
-    """Reliability-aware, topography-conditioned prior residual network."""
+class DPRCN(nn.Module):
+    """Historical-prior-guided residual correction network."""
 
     def __init__(
         self,
@@ -134,10 +134,10 @@ class TopographyConditionedDPRCN(nn.Module):
         }
 
 
-def build_model(config: dict, normalization: dict) -> TopographyConditionedDPRCN:
+def build_model(config: dict, normalization: dict) -> DPRCN:
     model_config = config["model"]
     prior_parameters = normalization["parameters"]["Prior_median"]
-    return TopographyConditionedDPRCN(
+    return DPRCN(
         prior_mean=float(prior_parameters["mean"]),
         prior_std=float(prior_parameters["std_population"]),
         features=int(model_config["features"]),

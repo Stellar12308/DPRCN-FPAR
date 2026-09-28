@@ -1,6 +1,6 @@
 # DPRCN-A3 for fine-resolution FPAR reconstruction
 
-Official code accompanying the manuscript **“Topography-Aware Spatiotemporal Fusion for High-Resolution FPAR Estimation in Complex Terrain Using a Deep Prior Residual Correction Network”** (manuscript TGRS-2026-04953).
+Official code accompanying the manuscript **“Fine-Resolution FPAR Reconstruction Using a Historical Prior-Guided Residual Correction Network”** (manuscript TGRS-2026-04953).
 
 DPRCN-A3 reconstructs 30 m target-date FPAR from four active inputs: a historical Landsat FPAR prior (HP), the log-transformed historical observation count (HN), historical FPAR standard deviation (HU), and contemporaneous MODIS FPAR (MF). The network predicts a bounded correction in logit space and combines it with the historical prior.
 
@@ -63,4 +63,3 @@ Processed data supporting the study are available from the corresponding author 
 ## Citation
 
 Please cite the associated manuscript if you use this code. Full bibliographic details will be added after publication.
-
