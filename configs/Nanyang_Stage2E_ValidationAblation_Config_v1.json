@@ -1,0 +1,78 @@
+{
+  "schema_version": "Stage2E_ValidationAblation_Config_v1",
+  "region_name": "Nanyang",
+  "project_root": ".",
+  "base_training_config": "02_Code/03_Stage2_DPRCN/configs/Nanyang_Stage2D_Training_Config_v1.json",
+  "stage2d_checkpoint": "04_Results/Stage2D_DPRCNTraining/Formal_MainModel_Seed42/best_model.pt",
+  "output_dir": "04_Results/Stage2E_ValidationAblationAndModelSelection",
+  "selection_split": "val",
+  "test_split_access_allowed": false,
+  "random_seed": 42,
+  "channel_order": [
+    "Prior_median",
+    "Prior_N_obs_log1p",
+    "Prior_sigma",
+    "MODIS_FPAR",
+    "MODIS_FPAR_SD",
+    "DEM",
+    "slope",
+    "aspect_sin",
+    "aspect_cos"
+  ],
+  "analytical_baselines": [
+    {
+      "id": "B0_PRIOR_RAW",
+      "label": "Historical prior only",
+      "prediction_source": "Prior_median"
+    },
+    {
+      "id": "B1_MODIS_RAW",
+      "label": "Raw MODIS only",
+      "prediction_source": "MODIS_FPAR"
+    }
+  ],
+  "trainable_variants": [
+    {
+      "id": "A1_PRIOR",
+      "label": "DPRCN: prior median",
+      "active_channel_indices": [0]
+    },
+    {
+      "id": "A2_PRIOR_RELIABILITY",
+      "label": "DPRCN: prior + prior reliability",
+      "active_channel_indices": [0, 1, 2]
+    },
+    {
+      "id": "A3_PRIOR_MODIS",
+      "label": "DPRCN: prior reliability + MODIS FPAR",
+      "active_channel_indices": [0, 1, 2, 3]
+    },
+    {
+      "id": "A4_PRIOR_MODIS_QC",
+      "label": "DPRCN: prior reliability + MODIS + MODIS uncertainty",
+      "active_channel_indices": [0, 1, 2, 3, 4]
+    },
+    {
+      "id": "A5_PLUS_DEM",
+      "label": "DPRCN: dynamic information + DEM",
+      "active_channel_indices": [0, 1, 2, 3, 4, 5]
+    },
+    {
+      "id": "A6_FULL_9CH",
+      "label": "DPRCN: full 9-channel model",
+      "active_channel_indices": [0, 1, 2, 3, 4, 5, 6, 7, 8],
+      "reuse_frozen_stage2d_checkpoint": true
+    }
+  ],
+  "model_selection": {
+    "primary_metric": "date_macro_RMSE",
+    "secondary_metrics": [
+      "date_macro_MAE",
+      "date_macro_absolute_Bias",
+      "date_macro_R2"
+    ],
+    "complexity_tolerance_rmse": 0.002,
+    "rule": "Choose the least complex variant within tolerance of the best validation date-macro RMSE; do not access test."
+  }
+}
+

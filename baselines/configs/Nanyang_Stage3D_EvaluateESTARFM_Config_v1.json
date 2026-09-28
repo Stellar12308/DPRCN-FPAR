@@ -1,0 +1,24 @@
+{
+  "schema_version": "Stage3D_EvaluateESTARFM_Config_v1",
+  "project_root": ".",
+  "reference_manifest": "04_Results/Stage3A_BaselineReferenceManifest/Nanyang_Stage3A_BaselineReferenceManifest_5TestDates.csv",
+  "prediction_dir": "04_Results/Stage3C_ESTARFM_FrozenTest",
+  "stage3c_audit": "04_Results/Stage3C_ESTARFM_FrozenTest/Nanyang_Stage3C_ESTARFM_SceneAudit.csv",
+  "output_dir": "04_Results/Stage3D_ESTARFM_TestEvaluation",
+  "prediction_pattern": "Nanyang_{date}_ESTARFM_FPAR.tif",
+  "expected_test_date_count": 5,
+  "valid_range": [0.0, 1.0],
+  "metrics": ["RMSE", "MAE", "Bias", "Pearson_R", "R2", "ubRMSE", "SSIM", "prediction_le_0p01_pct", "prediction_ge_0p99_pct", "N_valid_pixels"],
+  "primary_metric": "date_macro_RMSE",
+  "ssim": {
+    "window_size": 11,
+    "minimum_valid_fraction": 0.8,
+    "data_range": 1.0,
+    "k1": 0.01,
+    "k2": 0.03
+  },
+  "evaluation_mask_policy": "per_scene_intersection_of_estarfm_prediction_and_target_label",
+  "comparison_note": "Strict common-mask comparison with DPRCN-A3 and PK-STEM is deferred to the unified baseline comparison stage."
+}
+
+

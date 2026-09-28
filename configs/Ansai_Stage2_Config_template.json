@@ -1,0 +1,40 @@
+{
+  "schema_version": "Stage2_Config_v1",
+  "region_name": "Ansai",
+  "project_root": "REPLACE_WITH_ANSAI_PROJECT_ROOT",
+  "stage1c_manifest": "REPLACE_WITH_ANSAI_STAGE1C_MANIFEST.csv",
+  "stage2a_output_dir": "04_Results/Stage2A_PatchManifest",
+  "stage2_cache_dir": "03_Data/05_Stage2_Cache",
+  "random_seed": 42,
+  "patch": {
+    "height": 128,
+    "width": 128,
+    "stride_y": 32,
+    "stride_x": 32,
+    "train_min_joint_valid_fraction": 0.20,
+    "evaluation_min_joint_valid_pixels": 1,
+    "cover_right_and_bottom_edges": true
+  },
+  "frozen_split_counts": {
+    "train": "REPLACE_AFTER_ANSAI_SPLIT_FREEZE",
+    "val": "REPLACE_AFTER_ANSAI_SPLIT_FREEZE",
+    "test": "REPLACE_AFTER_ANSAI_SPLIT_FREEZE"
+  },
+  "input_channels": [
+    "Prior_median", "Prior_N_obs", "Prior_sigma",
+    "MODIS_FPAR", "MODIS_FPAR_SD", "DEM_normalized",
+    "Slope_normalized", "Aspect_sin", "Aspect_cos"
+  ],
+  "supervision": {
+    "target": "FPAR_label",
+    "primary_mask": "PrimaryValidMask",
+    "pixel_weight": "TrainingWeight",
+    "allowed_weights": [0.5, 0.8, 1.0],
+    "modis_mask": "MODIS_QC50Mask"
+  },
+  "normalization_policy": "fit_on_train_only",
+  "validation_policy": "model_selection_and_early_stopping_only",
+  "test_policy": "single_final_evaluation_only",
+  "nodata_value": -9999.0
+}
+

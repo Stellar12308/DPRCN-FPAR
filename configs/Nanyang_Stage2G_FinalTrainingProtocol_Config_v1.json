@@ -1,0 +1,97 @@
+{
+  "schema_version": "Stage2G_FinalTrainingProtocol_Config_v1",
+  "region_name": "Nanyang",
+  "project_root": ".",
+  "stage2a_patch_manifest": "04_Results/Stage2A_PatchManifest/Nanyang_Stage2A_DeterministicPatchManifest.csv",
+  "stage2a_summary": "04_Results/Stage2A_PatchManifest/Nanyang_Stage2A_PatchManifestSummary.csv",
+  "stage2f_audit": "04_Results/Stage2F_MultiSeedSeasonRobustness/00_Stage2F_FinalEvidenceAudit.json",
+  "output_dir": "04_Results/Stage2G_FinalA3TrainValFit",
+  "normalization_output_dir": "04_Results/Stage2G_FinalA3TrainValFit/01_TrainValNormalization",
+  "training_output_dir": "04_Results/Stage2G_FinalA3TrainValFit/02_FinalModel",
+  "selected_model": "A3_PRIOR_MODIS",
+  "active_channel_indices": [0, 1, 2, 3],
+  "active_channels": [
+    "Prior_median",
+    "Prior_N_obs_log1p",
+    "Prior_sigma",
+    "MODIS_FPAR"
+  ],
+  "normalization_fit_splits": ["train", "val"],
+  "expected_fit_scene_count": 21,
+  "expected_fit_patch_count": 411,
+  "test_split_access_allowed": false,
+  "random_seed": 42,
+  "fixed_training_epochs": 32,
+  "fixed_epoch_basis": "median of A3 best epochs across seeds 13, 42, 2026: median(26,39,32)=32",
+  "early_stopping_allowed": false,
+  "allowed_training_weights": [0.5, 0.8, 1.0],
+  "weight_tolerance": 0.000001,
+  "minimum_standard_deviation": 0.00000001,
+  "normalization": {
+    "method": "z_score",
+    "pixel_counting_policy": "unique_supervised_pixels_within_union_of_eligible_train_val_patches",
+    "Prior_median": "identity",
+    "Prior_N_obs": "log1p",
+    "Prior_sigma": "identity",
+    "MODIS_FPAR": "identity",
+    "MODIS_FPAR_SD": "identity",
+    "DEM_normalized": "identity",
+    "Slope_normalized": "identity",
+    "Aspect_sin": "identity",
+    "Aspect_cos": "identity"
+  },
+  "terrain": {
+    "slope_unit": "degree",
+    "aspect_definition": "clockwise_from_north_of_downslope_direction",
+    "edge_order": 1
+  },
+  "model": {
+    "input_channels": 9,
+    "features": 48,
+    "residual_groups": 3,
+    "blocks_per_group": 4,
+    "attention_reduction": 8,
+    "prior_epsilon": 0.01,
+    "maximum_logit_correction": 8.0,
+    "film_scale": 0.1
+  },
+  "loss": {
+    "pixel_loss": "smooth_l1",
+    "smooth_l1_beta": 0.05,
+    "gradient_loss_weight": 0.05,
+    "epsilon": 0.00000001
+  },
+  "optimizer": {
+    "name": "AdamW",
+    "learning_rate": 0.0001,
+    "weight_decay": 0.0001,
+    "gradient_clip_norm": 1.0
+  },
+  "loader": {
+    "batch_size": 4,
+    "num_workers": 0,
+    "pin_memory": false,
+    "scene_cache_size": 4
+  },
+  "final_evaluation_metrics_frozen": [
+    "RMSE",
+    "MAE",
+    "Bias",
+    "Pearson_R",
+    "R2",
+    "ubRMSE",
+    "SSIM",
+    "prediction_le_0p01_pct",
+    "prediction_ge_0p99_pct",
+    "N_valid_pixels"
+  ],
+  "primary_test_metric": "date_macro_RMSE",
+  "ssim_policy": {
+    "scope": "per_date_masked_spatial_windows_then_date_macro_average",
+    "data_range": 1.0,
+    "window_size": 11,
+    "minimum_valid_fraction_per_window": 0.8,
+    "note": "SSIM implementation must be verified before the one-time test run."
+  }
+}
+

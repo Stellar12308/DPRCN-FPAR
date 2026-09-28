@@ -1,0 +1,23 @@
+{
+  "schema_version": "Stage3C_ESTARFM_Config_v1",
+  "project_root": ".",
+  "reference_manifest": "04_Results/Stage3A_BaselineReferenceManifest/Nanyang_Stage3A_BaselineReferenceManifest_5TestDates.csv",
+  "output_dir": "04_Results/Stage3C_ESTARFM_FrozenTest",
+  "temporary_dir": "04_Results/Stage3C_ESTARFM_FrozenTest/_Temporary",
+  "window_radius": 25,
+  "window_size": 51,
+  "number_of_classes": 5,
+  "fpar_minimum": 0.0,
+  "fpar_maximum": 1.0,
+  "nodata": -9999.0,
+  "modis_fpar_band": 1,
+  "modis_valid_mask_band": 6,
+  "required_modis_mask_value": 1,
+  "target_label_role": "evaluation_only",
+  "expected_scene_count": 5,
+  "preserve_valid_zero": true,
+  "save_raw_prediction": true,
+  "save_clipped_prediction": true
+}
+
+

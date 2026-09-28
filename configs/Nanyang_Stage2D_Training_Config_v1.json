@@ -1,0 +1,63 @@
+{
+  "schema_version": "Stage2D_Training_Config_v1",
+  "region_name": "Nanyang",
+  "project_root": ".",
+  "stage2a_patch_manifest": "04_Results/Stage2A_PatchManifest/Nanyang_Stage2A_DeterministicPatchManifest.csv",
+  "stage2b_parameters": "04_Results/Stage2B_TrainOnlyNormalization/Nanyang_Stage2B_TrainOnlyNormalizationParameters.json",
+  "stage2c_summary": "04_Results/Stage2C_DatasetLoaderAudit/Nanyang_Stage2C_DatasetLoaderAuditSummary.csv",
+  "output_dir": "04_Results/Stage2D_DPRCNTraining",
+  "random_seed": 42,
+  "allowed_splits": ["train", "val"],
+  "test_split_access_allowed": false,
+  "model": {
+    "input_channels": 9,
+    "dynamic_channel_indices": [0, 1, 2, 3, 4],
+    "topography_channel_indices": [5, 6, 7, 8],
+    "prior_channel_index": 0,
+    "features": 48,
+    "residual_groups": 3,
+    "blocks_per_group": 4,
+    "attention_reduction": 8,
+    "prior_epsilon": 0.01,
+    "maximum_logit_correction": 8.0,
+    "film_scale": 0.1
+  },
+  "loss": {
+    "pixel_loss": "smooth_l1",
+    "smooth_l1_beta": 0.05,
+    "gradient_loss_weight": 0.05,
+    "epsilon": 1e-8
+  },
+  "optimizer": {
+    "name": "AdamW",
+    "learning_rate": 0.0001,
+    "weight_decay": 0.0001,
+    "gradient_clip_norm": 1.0
+  },
+  "scheduler": {
+    "name": "ReduceLROnPlateau",
+    "factor": 0.5,
+    "patience": 8,
+    "minimum_learning_rate": 0.000001
+  },
+  "loader": {
+    "batch_size": 4,
+    "num_workers": 0,
+    "pin_memory": false,
+    "scene_cache_size": 4
+  },
+  "formal_training": {
+    "maximum_epochs": 200,
+    "early_stopping_patience": 20,
+    "minimum_delta": 0.000001
+  },
+  "smoke_test": {
+    "maximum_epochs": 3,
+    "early_stopping_patience": 3,
+    "maximum_train_batches_per_epoch": 12,
+    "maximum_val_batches": null
+  },
+  "model_selection_metric": "validation_date_macro_rmse",
+  "augmentation_policy": "none_v1_topography_orientation_preserved"
+}
+

@@ -1,0 +1,35 @@
+{
+  "schema_version": "Stage2I_LeaveOneSeasonOut_Config_v1",
+  "region": "Nanyang",
+  "project_root": ".",
+  "patch_manifest": "04_Results/Stage2A_PatchManifest/Nanyang_Stage2A_DeterministicPatchManifest.csv",
+  "patch_manifest_sha256": "8a7bee4779bd735bcacd5714602ab92193cef04924d700cf2b2964c1ed4f7e94",
+  "stage2g_config": "02_Code/03_Stage2_DPRCN/configs/Nanyang_Stage2G_FinalTrainingProtocol_Config_v1.json",
+  "output_dir": "04_Results/Stage2I_LeaveOneSeasonOutRobustness",
+  "season_definition": {
+    "Winter": "DOY 001-059 and 340-366",
+    "Spring": "DOY 060-149",
+    "Summer": "DOY 150-244",
+    "Autumn": "DOY 245-339"
+  },
+  "fold_order": ["Winter", "Spring", "Summer", "Autumn"],
+  "selected_model": "A3_PRIOR_MODIS",
+  "active_channel_indices": [0, 1, 2, 3],
+  "random_seed": 42,
+  "fixed_epochs": 32,
+  "early_stopping": false,
+  "allowed_weights": [0.5, 0.8, 1.0],
+  "weight_tolerance": 0.000001,
+  "minimum_standard_deviation": 0.00000001,
+  "loader": {"batch_size": 4, "num_workers": 0, "pin_memory": false, "scene_cache_size": 4},
+  "evaluation": {
+    "primary_metric": "date_macro_RMSE",
+    "metrics": ["RMSE", "MAE", "Bias", "Pearson_R", "R2", "ubRMSE", "SSIM", "prediction_le_0p01_pct", "prediction_ge_0p99_pct", "N_valid_pixels"],
+    "ssim_window_size": 11,
+    "ssim_minimum_valid_fraction": 0.8,
+    "save_prediction_rasters": true,
+    "save_residual_rasters": true
+  },
+  "interpretation": "Supplementary outer leave-one-season-out robustness evidence; never used to retune the frozen Stage2G/Stage2H main model."
+}
+

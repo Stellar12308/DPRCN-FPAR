@@ -1,0 +1,33 @@
+{
+  "schema_version": "Stage2B_Normalization_Config_v1",
+  "region_name": "Nanyang",
+  "project_root": ".",
+  "stage2_base_config": "02_Code/03_Stage2_DPRCN/configs/Nanyang_Stage2_Config_v1.json",
+  "stage2a_patch_manifest": "04_Results/Stage2A_PatchManifest/Nanyang_Stage2A_DeterministicPatchManifest.csv",
+  "stage2a_summary": "04_Results/Stage2A_PatchManifest/Nanyang_Stage2A_PatchManifestSummary.csv",
+  "output_dir": "04_Results/Stage2B_TrainOnlyNormalization",
+  "fit_split": "train",
+  "expected_fit_scene_count": 16,
+  "allowed_training_weights": [0.5, 0.8, 1.0],
+  "weight_tolerance": 1e-6,
+  "minimum_standard_deviation": 1e-8,
+  "normalization": {
+    "method": "z_score",
+    "pixel_counting_policy": "unique_supervised_pixels_within_eligible_training_patches",
+    "Prior_median": "identity",
+    "Prior_N_obs": "log1p",
+    "Prior_sigma": "identity",
+    "MODIS_FPAR": "identity",
+    "MODIS_FPAR_SD": "identity",
+    "DEM_normalized": "identity",
+    "Slope_normalized": "identity",
+    "Aspect_sin": "identity",
+    "Aspect_cos": "identity"
+  },
+  "terrain": {
+    "slope_unit": "degree",
+    "aspect_definition": "clockwise_from_north_of_downslope_direction",
+    "edge_order": 1
+  }
+}
+

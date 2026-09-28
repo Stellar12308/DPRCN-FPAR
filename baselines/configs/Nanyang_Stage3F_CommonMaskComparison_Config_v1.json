@@ -1,0 +1,22 @@
+{
+  "schema_version": "Stage3F_CommonMaskComparison_Config_v1",
+  "project_root": ".",
+  "stage2h_config": "02_Code/03_Stage2_DPRCN/configs/Nanyang_Stage2H_OneTimeTestEvaluation_Config_v1.json",
+  "reference_manifest": "04_Results/Stage3A_BaselineReferenceManifest/Nanyang_Stage3A_BaselineReferenceManifest_5TestDates.csv",
+  "estarfm_dir": "04_Results/Stage3C_ESTARFM_FrozenTest",
+  "pkstem_dir": "04_Results/Stage3E_AdaptedPKSTEM_FrozenTest",
+  "output_dir": "04_Results/Stage3F_FinalCommonMaskComparison",
+  "expected_test_dates": 5,
+  "models": ["DPRCN-A3", "ESTARFM", "PK-STEM (adapted)"],
+  "reported_metrics": ["RMSE", "MAE", "Bias", "Pearson_R", "R2", "ubRMSE", "SSIM"],
+  "common_mask_policy": "intersection_of_target_and_all_three_model_valid_pixels_per_date",
+  "ssim": {
+    "window_size": 11,
+    "minimum_valid_fraction": 0.8,
+    "data_range": 1.0,
+    "k1": 0.01,
+    "k2": 0.03
+  }
+}
+
+

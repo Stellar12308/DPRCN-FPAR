@@ -1,0 +1,31 @@
+{
+  "schema_version": "Stage2H_OneTimeTestEvaluation_Config_v1",
+  "region_name": "Nanyang",
+  "project_root": ".",
+  "model_name": "A3_PRIOR_MODIS",
+  "active_channel_indices": [0, 1, 2, 3],
+  "checkpoint": "04_Results/Stage2G_FinalA3TrainValFit/02_FinalModel/Nanyang_Stage2G_FinalA3_TrainVal_Seed42_Epoch32.pt",
+  "checkpoint_sha256": "4f5a7c58476a743e9824bbbcd0575eac5f995311c9d9bc52e3c1b7cca88db015",
+  "normalization": "04_Results/Stage2G_FinalA3TrainValFit/01_TrainValNormalization/Nanyang_Stage2G_TrainValNormalizationParameters.json",
+  "normalization_sha256": "b60e51d9be537e8a46d717b6f2e05ae67428f4d7a427eee18bd2e047b7c09801",
+  "patch_manifest": "04_Results/Stage2A_PatchManifest/Nanyang_Stage2A_DeterministicPatchManifest.csv",
+  "patch_manifest_sha256": "8a7bee4779bd735bcacd5714602ab92193cef04924d700cf2b2964c1ed4f7e94",
+  "output_dir": "04_Results/Stage2H_OneTimeTestEvaluation",
+  "expected_test_patch_count": 96,
+  "expected_test_date_count": 5,
+  "batch_size": 4,
+  "scene_cache_size": 4,
+  "random_seed": 42,
+  "metrics": ["RMSE", "MAE", "Bias", "Pearson_R", "R2", "ubRMSE", "SSIM", "prediction_le_0p01_pct", "prediction_ge_0p99_pct", "N_valid_pixels"],
+  "primary_metric": "date_macro_RMSE",
+  "ssim": {
+    "window_size": 11,
+    "minimum_valid_fraction": 0.8,
+    "data_range": 1.0,
+    "k1": 0.01,
+    "k2": 0.03
+  },
+  "evaluation_policy": "mosaic_overlapping_patches_first_then_compute_unique_pixel_metrics",
+  "test_access_policy": "one_time_after_protocol_and_metric_freeze"
+}
+

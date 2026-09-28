@@ -1,0 +1,36 @@
+{
+  "schema_version": "Stage2_Config_v1",
+  "region_name": "Nanyang",
+  "project_root": ".",
+  "stage1c_manifest": "04_Results/Stage1C_FinalModelInputAudit_26Scenes/Nanyang_Stage1C_26Scenes_ModelInputManifest.csv",
+  "stage2a_output_dir": "04_Results/Stage2A_PatchManifest",
+  "stage2_cache_dir": "03_Data/05_Stage2_Cache",
+  "random_seed": 42,
+  "patch": {
+    "height": 128,
+    "width": 128,
+    "stride_y": 32,
+    "stride_x": 32,
+    "train_min_joint_valid_fraction": 0.20,
+    "evaluation_min_joint_valid_pixels": 1,
+    "cover_right_and_bottom_edges": true
+  },
+  "frozen_split_counts": {"train": 16, "val": 5, "test": 5},
+  "input_channels": [
+    "Prior_median", "Prior_N_obs", "Prior_sigma",
+    "MODIS_FPAR", "MODIS_FPAR_SD", "DEM_normalized",
+    "Slope_normalized", "Aspect_sin", "Aspect_cos"
+  ],
+  "supervision": {
+    "target": "FPAR_label",
+    "primary_mask": "PrimaryValidMask",
+    "pixel_weight": "TrainingWeight",
+    "allowed_weights": [0.5, 0.8, 1.0],
+    "modis_mask": "MODIS_QC50Mask"
+  },
+  "normalization_policy": "fit_on_train_only",
+  "validation_policy": "model_selection_and_early_stopping_only",
+  "test_policy": "single_final_evaluation_only",
+  "nodata_value": -9999.0
+}
+

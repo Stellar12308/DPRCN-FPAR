@@ -1,0 +1,13 @@
+{
+  "schema_version": "Stage3A_BaselineReferenceManifest_Config_v1",
+  "project_root": ".",
+  "split_manifest": "04_Results/Stage1A_SplitManifest/Nanyang_2023_26Scenes_TrainValTest_Split_v1.csv",
+  "output_dir": "04_Results/Stage3A_BaselineReferenceManifest",
+  "reference_pool_splits": ["train", "val"],
+  "target_split": "test",
+  "selection_rule": "nearest_previous_and_next_calendar_date",
+  "expected_target_count": 5,
+  "expected_reference_pool_date_count": 21
+}
+
+

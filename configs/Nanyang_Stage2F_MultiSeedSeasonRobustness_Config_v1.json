@@ -1,0 +1,36 @@
+{
+  "schema_version": "Stage2F_MultiSeedSeasonRobustness_Config_v1",
+  "region_name": "Nanyang",
+  "project_root": ".",
+  "base_training_config": "02_Code/03_Stage2_DPRCN/configs/Nanyang_Stage2D_Training_Config_v1.json",
+  "stage2e_summary": "04_Results/Stage2E_ValidationAblationAndModelSelection/Nanyang_Stage2E_AblationValidationSummary.csv",
+  "stage2e_result_dir": "04_Results/Stage2E_ValidationAblationAndModelSelection",
+  "output_dir": "04_Results/Stage2F_MultiSeedSeasonRobustness",
+  "models": [
+    {
+      "id": "A3_PRIOR_MODIS",
+      "active_channel_indices": [0, 1, 2, 3]
+    },
+    {
+      "id": "A6_FULL_9CH",
+      "active_channel_indices": [0, 1, 2, 3, 4, 5, 6, 7, 8]
+    }
+  ],
+  "random_seeds": [13, 42, 2026],
+  "reuse_seed42": true,
+  "selection_split": "val",
+  "test_split_access_allowed": false,
+  "season_definition": {
+    "Spring": [60, 151],
+    "Summer": [152, 243],
+    "Autumn": [244, 334],
+    "Winter": [335, 366]
+  },
+  "robustness_selection_rule": {
+    "primary_metric": "multi_seed_mean_date_macro_RMSE",
+    "equivalence_tolerance_rmse": 0.002,
+    "tie_breaker": "fewer_active_channels",
+    "minimum_completed_seeds_per_model": 3
+  }
+}
+
